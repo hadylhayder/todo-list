@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Todo List - Task Manager ✨</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Animated background elements -->
+        <div class="background-animation">
+            <div class="floating-bubble bubble-1"></div>
+            <div class="floating-bubble bubble-2"></div>
+            <div class="floating-bubble bubble-3"></div>
+        </div>
+
+        <header class="header">
+            <div class="header-icons">
+                <div class="icon-container">
+                    <i class="fas fa-sparkles"></i>
+                </div>
+                <h1>✨ My Todo List ✨</h1>
+                <div class="icon-container">
+                    <i class="fas fa-trophy"></i>
+                </div>
+            </div>
+            <p class="subtitle">🎯 Organize your tasks like a pro! 🚀</p>
+            <div class="bouncing-emojis">
+                <span class="bounce-1">🌟</span>
+                <span class="bounce-2">💫</span>
+                <span class="bounce-3">✨</span>
+            </div>
+        </header>
+
+        <div class="todo-container">
+            <!-- Add Task Section -->
+            <div class="add-task-section">
+                <div class="add-task-header">
+                    <i class="fas fa-rocket"></i>
+                    <h2>🎯 Add New Amazing Task</h2>
+                </div>
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <i class="fas fa-gift input-icon"></i>
+                        <input type="text" id="taskInput" placeholder="✨ What amazing thing will you do today?" maxlength="100">
+                    </div>
+                    <select id="prioritySelect">
+                        <option value="low">🎯 Low Priority</option>
+                        <option value="medium" selected>⚡ Medium Priority</option>
+                        <option value="high">🔥 High Priority</option>
+                    </select>
+                    <button id="addBtn" class="add-btn">
+                        <i class="fas fa-plus"></i> 🚀 Add Task
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card stat-all">
+                    <i class="fas fa-list"></i>
+                    <div class="stat-number" id="allCount">0</div>
+                    <div class="stat-label">📋 Total Tasks</div>
+                </div>
+                <div class="stat-card stat-pending">
+                    <i class="fas fa-clock"></i>
+                    <div class="stat-number" id="pendingCount">0</div>
+                    <div class="stat-label">⏰ Pending</div>
+                </div>
+                <div class="stat-card stat-completed">
+                    <i class="fas fa-trophy"></i>
+                    <div class="stat-number" id="completedCount">0</div>
+                    <div class="stat-label">🏆 Completed</div>
+                </div>
+            </div>
+
+            <!-- Filters and Actions -->
+            <div class="controls">
+                <div class="filters">
+                    <button class="filter-btn active" data-filter="all">
+                        <i class="fas fa-list"></i> 📋 All (<span class="filter-count" id="allCountFilter">0</span>)
+                    </button>
+                    <button class="filter-btn" data-filter="pending">
+                        <i class="fas fa-clock"></i> ⏰ Pending (<span class="filter-count" id="pendingCountFilter">0</span>)
+                    </button>
+                    <button class="filter-btn" data-filter="completed">
+                        <i class="fas fa-check"></i> 🏆 Completed (<span class="filter-count" id="completedCountFilter">0</span>)
+                    </button>
+                </div>
+                <div class="actions">
+                    <button id="clearCompleted" class="action-btn">
+                        <i class="fas fa-broom"></i> 🧹 Clear Completed
+                    </button>
+                    <button id="clearAll" class="action-btn danger">
+                        <i class="fas fa-bomb"></i> 💥 Clear All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-section">
+                <div class="search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="🔍 Search your amazing tasks...">
+                    <button id="clearSearch" class="clear-search">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tasks List -->
+            <div class="tasks-section">
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-emoji">📝</div>
+                    <h3>🌟 Ready to be productive?</h3>
+                    <p>Add your first amazing task above! 🚀</p>
+                </div>
+                <ul id="taskList" class="task-list"></ul>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-section">
+                <div class="progress-header">
+                    <div class="progress-title">
+                        <i class="fas fa-crown"></i>
+                        <span>🏆 Your Progress</span>
+                    </div>
+                    <div class="progress-percentage">
+                        <span id="progressText">0%</span>
+                        <span id="progressEmoji">💪</span>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+                <div id="progressMessage" class="progress-message">
+                    🌟 Ready to start your productive day? 🌟
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-emoji">⚠️</div>
+            <i class="fas fa-exclamation-triangle modal-icon"></i>
+            <h3>🤔 Are you sure?</h3>
+            <p id="confirmMessage">Are you sure you want to perform this action?</p>
+            <div class="modal-actions">
+                <button id="confirmYes" class="btn-confirm">✅ Yes, Do It!</button>
+                <button id="confirmNo" class="btn-cancel">❌ Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
